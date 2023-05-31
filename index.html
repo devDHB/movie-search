@@ -2,28 +2,18 @@
 <html lang="en">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            background: url("../assets/bg.png") center/cover no-repeat;
             min-height: 100vh;
-            background-color: rgb(175, 231, 231);
+            background-color: white;
         }
 
-        header {
+        .title {
             background-color: #ffe194;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px 0;
-            margin: 0;
+            
         }
 
         .search {
@@ -32,76 +22,64 @@
             justify-content: center;
             padding: 20px 0;
             border-bottom: 1px solid black;
-        }
-
-        .search label {
             font-size: 25px;
         }
-
+    
         .search input {
             margin-left: 20px;
-            min-width: 200px;
-            padding: 5px 10px;
         }
 
         .search button {
             margin-left: 10px;
-            padding: 5px;
+        }
+        .cards-box{
+           display: grid;
+           grid-template-columns: 1fr 1fr 1fr 1fr;
+           
+        }
+        
+        .card_list{
+            margin: 20px auto;
+            padding: 20px;
+            width: 250px;
+            background-color: rgb(48, 43, 43);
+        }
+        
+
+        
+        .card-img{
+            width: 100%;
+            border-radius: 70%;
+        }
+        .card-title{
+            color: white;
+        }
+        .card-text{
+            color: white;
+        }
+        .card-grade{
+            color: white;
         }
 
-        #card-container {
-            width: 60%;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
 
-        #card-box {
-            background-color: rgb(233, 233, 233);
-            width: 200px;
-            height: 280px;
-            border-radius: 20px;
-            text-align: center;
-            margin: 0 auto;
-        }
-
-        #card-img {
-            height: 180px;
-        }
-
-        #card-title {
-            padding-top: 10px;
-            font-weight: bold;
-        }
-
-        #card-overview {
-            height: 40px;
-            vertical-align: middle;
-        }
-
-        #card-grade {
-            height: 40px;
-            vertical-align: middle;
-        }
+        
     </style>
     <title>내배캠 최고 평점 영화</title>
 </head>
 
 <body>
-    <header>
+    <div class="title">
         <h1>내배캠 최고 평점 영화 콜렉션</h1>
-    </header>
+    </div>
     <div class="search">
         <label>영화 검색 : </label>
         <input type="text" id="search-input" placeholder="영화 제목을 검색해 보세요" />
         <button type="submit" id="search-btn" onclick="search()">검색</button>
     </div>
-    <div class="mycards">
-        <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
+        <div class="cards-box" id="cards-box">
 
             <script>
-                const card_id = document.querySelector('.button_box');
-                const options = {
+               const options = {
                     method: 'GET',
                     headers: {
                         accept: 'application/json',
@@ -119,35 +97,37 @@
                             let grade = a['vote_average']
                             let id = a['id']
 
-                            let temp_html = `<div class="col" onclick="select(${id})">
-                          <div class="card h-100">
-                           <img src="https://image.tmdb.org/t/p/original/${img}"
-                            class="card-img-top">
-                              <div class="card-body">
-                             <h5 id="movie_title" class="card-title">${title}</h5>
-                             <p class="card-text">${overview}</p>
-                              <p>${grade}</p>
-                                </div>
-                                 </div>
-                                  </div>`
+                            let temp_html = `<div class="card_list" onclick="select(${id})">
+                                            <img src="https://image.tmdb.org/t/p/original/${img}"
+                                            class="card-img">
+                                            <h5 id="movie_title" class="card-title">${title}</h5>
+                                            <p class="card-text">${overview}</p>
+                                            <p class="card-grade">${grade}</p>
+                                            </div>`
                             document.querySelector("#cards-box").insertAdjacentHTML("beforeend", temp_html)
                         })
                     })
                     .catch(err => console.error(err));
 
-                fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
-                    .then(response => response.json()).then(data => {
-                        let rows = data['results']
-                        console.log(data['results'])
-                        rows.forEach((a) => {
-                            let title = a['title']
-                            function search() {
-                                const input_name =
-                                    document.getElementById("search-input").value
+                function search() {
+                    const search_Input = document.querySelector('#search-input');
+                    const search_word = search_Input.value.toLowerCase();
+                    const movie_list = document.querySelectorAll('.card_list');
 
-                            }
-                        })
+                    movie_list.forEach((a) => {
+                        const movie_title = a.querySelector("#movie_title").textContent.toLowerCase();
+                                          
+                        if (movie_title.indexOf(search_word) !== -1) {
+                            a.style.display='block';   
+                        }
+                         else {
+                            a.style.display='none';
+                        }
                     })
+                }
+
+
+
 
                 function select(id) {
                     alert(`영화 id : ${id}`);
