@@ -23,22 +23,22 @@ fetch(
       //카드를 클릭하면  id가 alert이 되는 함수를 실행한다.//
       //카드 뒤집는 태그가 차례로 있다.//
       let temp_html = `<div class="flip-box" onclick="select(${id})">
-                              <div class="flip">
-                                  <div class="front">
-                                  <div class="img-cut"> 
-                                  <img src="https://image.tmdb.org/t/p/original/${img}"
-                                  class="card-background">
-                                  <img src="https://image.tmdb.org/t/p/original/${img}"
-                                  class="card-img">
-                                  </div>
-                                  <h5 id="movie_title" class="card-title">${title}</h5>                                                                                               
-                                  </div>
-                                  <div class="back">
-                                  <p class="card-grade">-${grade}-</p>
-                                  <p class="card-text">${overview}</p>
-                                  </div>
+                          <div class="flip">
+                              <div class="front">
+                              <div class="img-cut"> 
+                              <img src="https://image.tmdb.org/t/p/original/${img}"
+                              class="card-background">
+                              <img src="https://image.tmdb.org/t/p/original/${img}"
+                              class="card-img">
                               </div>
-                          </div>`;
+                              <h5 id="movie_title" class="card-title">${title}</h5>                                                                                               
+                              </div>
+                              <div class="back">
+                              <p class="card-grade">-${grade}-</p>
+                              <p class="card-text">${overview}</p>
+                              </div>
+                          </div>
+                      </div>`;
       document
         .querySelector("#cards-box")
         .insertAdjacentHTML("beforeend", temp_html); //append()가 태그까지 같이 붙혀버려서 insertAdjacentHTML(태그요소만 넣는 메소드)를 사용//
@@ -65,6 +65,8 @@ function search() {
   });
 }
 
+// 상세페이지로 id값 넘기기 (방두현)
 function select(id) {
   alert(`영화 id: ${id}`);
+  alert((window.location.href = "detail.html?" + id));
 }
