@@ -12,11 +12,11 @@
 <body>
   <div class="section">
     <div id="infoContainer">
-    </div>
-    <div id="infoContainer2">
-    </div>
+      <div class="movieImgScript">
+      </div>
+      <div class="movieTitleAve">
+      </div>
   </div>
-
 
   <script>
     let arr = [];
@@ -39,17 +39,17 @@
         const rows = data["results"];
         const movie1 = rows.filter(data => data.id == arr[1]);
 
-        const infoBox = document.querySelector("#infoContainer");
-        const infoContents = document.querySelector("#infoContainer2");
+        const infoBox = document.querySelector(".movieImgScript");
+        const titleBox = document.querySelector(".movieTitleAve");
+
         infoBox.innerHTML = movie1.map(
           (movie1) => `<img src="https://image.tmdb.org/t/p/w500${movie1.poster_path}" alt="${movie1.title}" class="infoImg">
-                      <div>
-                      <h3 class="infoTitle">${movie1.title}</h3>
-                      <p class="infoAverage">Rating: ${movie1.vote_average}</p>
-                      </div>`
+        <div class="infoOverview">${movie1.overview}</div>
+        `
         );
-        infoContents.innerHTML = movie1.map(
-          (movie1) => `<div class="infoOverview">${movie1.overview}</div>`
+        titleBox.innerHTML = movie1.map(
+          (movie1) => `<h3 class="infoTitle">${movie1.title}</h3>
+        <p class="infoAverage">${movie1.vote_average}</p>`
         )
       })
   </script>
