@@ -1,7 +1,7 @@
 let arr = [];
     arr = location.href.split("?");
     const pageId = arr[1];
-    console.log(pageId);
+    
     const options = {
       method: "GET",
       headers: {
@@ -42,9 +42,9 @@ let arr = [];
                      <input type="password" id="password" placeholder="password" autocomplete="off" >
                      </div>
                      <div class = "buttons">
-                 <button class="save" id="${movie1.id}" type="button">Save</button>
-                 <button class="edit" id="${movie1.id}" type=" button">Edit</button>
-                 <button class="delete" id="${movie1.id}" type=" button">Delete</button>
+                 <button class="save" id="${movie1.id}" type="button">작성</button>
+                 <button class="edit" id="${movie1.id}" type=" button">수정</button>
+                 <button class="delete" id="${movie1.id}" type=" button">삭제</button>
             </div>
             `);
 
@@ -57,12 +57,12 @@ let arr = [];
 
     let writterarray = [];
     let writtersarray = (localStorage.getItem(pageId +'writters')).split("|")
-    //console.log(writtersarray)
+
     for (let i = writtersarray.length - 1; i > 1; i--) {
-        let p = `<p id="">밑은 코멘트 내용</p>
+        let p = `<p id="view">[코멘트]</p>
                 <p class="content" id="reviewcontent2">
                 ${localStorage.getItem(writtersarray[i] + pageId +"input")}</p>
-                <p id="id">밑은 이름</p>
+                <p id="name">[이름]</p>
                 <p class="content" id="writter2">${writtersarray[i]} </p>`
         let div = document.createElement("div")
         div.className = "commentviewbox"

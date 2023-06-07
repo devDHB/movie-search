@@ -53,3 +53,98 @@ body {
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
 }
+
+
+.commentbox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+#writter {
+    width: 150px;
+    height: 30px;
+}
+
+#password {
+    width: 150px;
+    height: 30px;
+}
+
+.login {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 10px;
+    width: 300px;
+}
+
+.save,
+.edit,
+.delete {
+    height: 30px;
+    width: 100px;
+    font-weight: 700;
+    background-color: black;
+
+    color: white;
+}
+
+
+
+.delete:hover,
+.delete:focus,
+.edit:hover,
+.edit:focus,
+.save:hover,
+.save:hover {
+    height: 30px;
+    width: 100px;
+    font-weight: 700;
+    background-color: white;
+
+    color: black;
+}
+
+
+#review {
+    font-size: 45px;
+    padding-left: 10px;
+}
+
+#comment {
+    width: 300px;
+    height: 60px;
+    font-size: 20px;
+}
+
+.commentviewbox {
+    border: 1px solid black;
+    color: black;
+    width: 300px;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+}
+
+#view {
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+#name {
+    font-size: 15px;
+}
+
+.content {
+    font-size: 20px;
+}
