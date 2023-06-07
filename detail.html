@@ -1,19 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      console.log(location.href);
-      let arr = [];
-      arr = location.href.split("?");
-      console.log(arr[1]);
 
-      let id = arr[1];
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style/info.css">
+  <title>movieInfo</title>
+</head>
+
+<body>
+  <div class="section">
+    <div id="infoContainer">
+    </div>
+    <div id="infoContainer2">
+    </div>
+  </div>
+
+
+  <script>
+    let arr = [];
+    arr = location.href.split("?");
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NmQ2MDljY2M4YTk2OGQ4NmY3MDY5MGE5MmU3ZWMwMCIsInN1YiI6IjY0NzA4YTIwNzcwNzAwMDExOTI0ODFmYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5NjHTZbzSO0wzPIHy0BTBCKG3LvrIYUl4GMa0h1E5VE",
+      },
+    };
+
+    fetch(
+      "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+      options
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const rows = data["results"];
+        const movie1 = rows.filter(data => data.id == arr[1]);
+
+        const infoBox = document.querySelector("#infoContainer");
+        const infoContents = document.querySelector("#infoContainer2");
+        infoBox.innerHTML = movie1.map(
+          (movie1) => `<img src="https://image.tmdb.org/t/p/w500${movie1.poster_path}" alt="${movie1.title}" class="infoImg">
+                      <div>
+                      <h3 class="infoTitle">${movie1.title}</h3>
+                      <p class="infoAverage">Rating: ${movie1.vote_average}</p>
+                      </div>`
+        );
+        infoContents.innerHTML = movie1.map(
+          (movie1) => `<div class="infoOverview">${movie1.overview}</div>`
+        )
+      })
+  </script>
+</body>
+
 </html>
