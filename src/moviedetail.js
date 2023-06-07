@@ -1,5 +1,7 @@
 let arr = [];
     arr = location.href.split("?");
+    const pageId = arr[1];
+    console.log(pageId);
     const options = {
       method: "GET",
       headers: {
@@ -45,22 +47,21 @@ let arr = [];
                  <button class="delete" id="${movie1.id}" type=" button">Delete</button>
             </div>
             `);
+
       })
 
     }
-    let ids =[];
+    
     const review = document.querySelector("#review");
     const comment = document.querySelector("#comment");
-    let sendid = localStorage.getItem('movieid')
-    console.log(sendid);
 
     let writterarray = [];
-    let writtersarray = (localStorage.getItem('writters')).split("|")
+    let writtersarray = (localStorage.getItem(pageId +'writters')).split("|")
     //console.log(writtersarray)
     for (let i = writtersarray.length - 1; i > 1; i--) {
         let p = `<p id="">밑은 코멘트 내용</p>
                 <p class="content" id="reviewcontent2">
-                ${localStorage.getItem(writtersarray[i] + "input")}</p>
+                ${localStorage.getItem(writtersarray[i] + pageId +"input")}</p>
                 <p id="id">밑은 이름</p>
                 <p class="content" id="writter2">${writtersarray[i]} </p>`
         let div = document.createElement("div")
@@ -85,29 +86,30 @@ let arr = [];
         if (target === review) return;
     
         if (target.matches(".save")) {
-            localStorage.setItem(writtercomment + "input", inputcomment)
-            localStorage.setItem(writtercomment + "pw", passwordcomment)
-            if (!localStorage.getItem('writters')) { localStorage.setItem('writters', "|") }
-            localStorage.setItem('writters', localStorage.getItem('writters') + "|" + writtercomment)
-            location.reload()
-        }
-        else if (target.matches(".edit")) {
-            if (passwordcomment == localStorage.getItem(writtercomment + "pw")) {
-                localStorage.setItem(writtercomment + "input", inputcomment)
-                location.reload()
-            }
-            else if (passwordcomment !== localStorage.getItem(writtercomment + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
-        }
-        else if (target.matches(".delete")) {
-            if (passwordcomment == localStorage.getItem(writtercomment + "pw")) {
-                localStorage.removeItem(writtercomment + "input");
-                localStorage.removeItem(writtercomment + "pw");
-                let newwritters = (localStorage.getItem('writters')).replace("|" + writtercomment, "")
-                localStorage.setItem('writters', newwritters)
-                location.reload()
-    
-            }
-            else if (passwordcomment !== localStorage.getItem(writtercomment + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
-        }
-    
-    }
+          localStorage.setItem(writtercomment + pageId + "input", inputcomment)
+          localStorage.setItem(writtercomment + pageId + "pw", passwordcomment)
+          if (!localStorage.getItem(pageId + 'writters')) { localStorage.setItem(pageId + 'writters', "|") }
+          localStorage.setItem(pageId + 'writters', localStorage.getItem(pageId + 'writters') + "|" + writtercomment)
+          location.reload()
+      }
+      else if (target.matches(".edit")) {
+          if (passwordcomment == localStorage.getItem(writtercomment + pageId + "pw")) {
+              localStorage.setItem(writtercomment + pageId + "input", inputcomment)
+              location.reload()
+          }
+          else if (passwordcomment !== localStorage.getItem(writtercomment + pageId + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
+      }
+      else if (target.matches(".delete")) {
+          if (passwordcomment == localStorage.getItem(writtercomment + pageId + "pw")) {
+              localStorage.removeItem(writtercomment + pageId + "input");
+              localStorage.removeItem(writtercomment + pageId + "pw");
+              let newwritters = (localStorage.getItem(pageId + 'writters')).replace("|" + writtercomment, "")
+              localStorage.setItem(pageId + 'writters', newwritters)
+              location.reload()
+  
+          }
+          else if (passwordcomment !== localStorage.getItem(writtercomment + pageId + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
+      }
+  
+  }
+  
