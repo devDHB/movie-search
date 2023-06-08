@@ -20,7 +20,8 @@ let arr = [];
       .then((response) => response.json())
       .then((data) => {
         const rows = data["results"];
-        const movie1 = rows.filter(data => data.id == arr[1]);
+        const moviedata = rows.find(data => data.id == arr[1]);
+        const movie1 = [moviedata];
 
         const infoBox = document.querySelector(".movieImgScript");
         const titleBox = document.querySelector(".movieTitleAve");
@@ -48,14 +49,21 @@ let arr = [];
             </div>
             `);
 
+            movies = rows.map(movie => ({ ...movie }))
+            for (let i = 0; i < movies.length; i++) {
+              let movieid = movies[i]['id']
+              console.log(movieid);
+              if (!(localStorage.getItem(movieid+"writters"))) {
+                  localStorage.setItem(movieid+"writters", "|");
+              }}
+
       })
 
     }
     
     const review = document.querySelector("#review");
     const comment = document.querySelector("#comment");
-
-    let writterarray = [];
+    let movies = [];
     let writtersarray = (localStorage.getItem(pageId +'writters')).split("|")
 
     for (let i = writtersarray.length - 1; i > 1; i--) {
