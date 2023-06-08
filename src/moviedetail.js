@@ -1,7 +1,5 @@
-let arr = [];
-    arr = location.href.split("?");
-    const pageId = arr[1];
-    
+const url = window.location.search
+const arr = url.slice(1,url.length);
     const options = {
       method: "GET",
       headers: {
@@ -20,7 +18,7 @@ let arr = [];
       .then((response) => response.json())
       .then((data) => {
         const rows = data["results"];
-        const moviedata = rows.find(data => data.id == arr[1]);
+        const moviedata = rows.find(data => data.id == arr);
         const movie1 = [moviedata];
 
         const infoBox = document.querySelector(".movieImgScript");
@@ -35,7 +33,7 @@ let arr = [];
           (movie1) => `<h3 class="infoTitle">${movie1.title}</h3>
         <p class="infoAverage">${movie1.vote_average}</p>`
         )
-    
+        
         review.innerHTML = movie1.map( (movie1) =>
             `<input id="comment" placeholder="please leave comment" autocomplete="off" autofocus></input>
                       <div class = "login">
@@ -52,7 +50,6 @@ let arr = [];
             movies = rows.map(movie => ({ ...movie }))
             for (let i = 0; i < movies.length; i++) {
               let movieid = movies[i]['id']
-              console.log(movieid);
               if (!(localStorage.getItem(movieid+"writters"))) {
                   localStorage.setItem(movieid+"writters", "|");
               }}
@@ -64,12 +61,12 @@ let arr = [];
     const review = document.querySelector("#review");
     const comment = document.querySelector("#comment");
     let movies = [];
-    let writtersarray = (localStorage.getItem(pageId +'writters')).split("|")
+    let writtersarray = (localStorage.getItem(arr +'writters')).split("|")
 
     for (let i = writtersarray.length - 1; i > 1; i--) {
         let p = `<p id="view">[코멘트]</p>
                 <p class="content" id="reviewcontent2">
-                ${localStorage.getItem(writtersarray[i] + pageId +"input")}</p>
+                ${localStorage.getItem(writtersarray[i] + arr +"input")}</p>
                 <p id="name">[이름]</p>
                 <p class="content" id="writter2">${writtersarray[i]} </p>`
         let div = document.createElement("div")
@@ -94,29 +91,29 @@ let arr = [];
         if (target === review) return;
     
         if (target.matches(".save")) {
-          localStorage.setItem(writtercomment + pageId + "input", inputcomment)
-          localStorage.setItem(writtercomment + pageId + "pw", passwordcomment)
-          if (!localStorage.getItem(pageId + 'writters')) { localStorage.setItem(pageId + 'writters', "|") }
-          localStorage.setItem(pageId + 'writters', localStorage.getItem(pageId + 'writters') + "|" + writtercomment)
+          localStorage.setItem(writtercomment + arr + "input", inputcomment)
+          localStorage.setItem(writtercomment + arr + "pw", passwordcomment)
+          if (!localStorage.getItem(arr + 'writters')) { localStorage.setItem(arr + 'writters', "|") }
+          localStorage.setItem(arr + 'writters', localStorage.getItem(arr + 'writters') + "|" + writtercomment)
           location.reload()
       }
       else if (target.matches(".edit")) {
-          if (passwordcomment == localStorage.getItem(writtercomment + pageId + "pw")) {
-              localStorage.setItem(writtercomment + pageId + "input", inputcomment)
+          if (passwordcomment == localStorage.getItem(writtercomment + arr + "pw")) {
+              localStorage.setItem(writtercomment + arr + "input", inputcomment)
               location.reload()
           }
-          else if (passwordcomment !== localStorage.getItem(writtercomment + pageId + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
+          else if (passwordcomment !== localStorage.getItem(writtercomment + arr + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
       }
       else if (target.matches(".delete")) {
-          if (passwordcomment == localStorage.getItem(writtercomment + pageId + "pw")) {
-              localStorage.removeItem(writtercomment + pageId + "input");
-              localStorage.removeItem(writtercomment + pageId + "pw");
-              let newwritters = (localStorage.getItem(pageId + 'writters')).replace("|" + writtercomment, "")
-              localStorage.setItem(pageId + 'writters', newwritters)
+          if (passwordcomment == localStorage.getItem(writtercomment + arr + "pw")) {
+              localStorage.removeItem(writtercomment + arr + "input");
+              localStorage.removeItem(writtercomment + arr + "pw");
+              let newwritters = (localStorage.getItem(arr + 'writters')).replace("|" + writtercomment, "")
+              localStorage.setItem(arr + 'writters', newwritters)
               location.reload()
   
           }
-          else if (passwordcomment !== localStorage.getItem(writtercomment + pageId + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
+          else if (passwordcomment !== localStorage.getItem(writtercomment + arr + "pw")) { alert("비밀번호가 일치하지 않습니다.") }
       }
   
   }
