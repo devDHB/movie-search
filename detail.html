@@ -19,27 +19,28 @@
     </div>
   </div>
 
-
-
-
   <div id="review">
     <div class="login">
-      <input type="text" id="nickName" placeholder="name">
-      <input type="password" id="password" placeholder="password">
+      <input type="text" id="comment" placeholder="comment" maxlength='144'>
+      <input type="text" id="nickName" placeholder="name" maxlength='8'>
+      <input type="password" id="password" placeholder="password"  oninput='handleOnInput(this, 8)'>
     </div>
-    <div class="button">
-      <button class="save" type="button" onclick="save()">작성</button>
+    <div class="buttons">
+      <div class="button">
+        <button class="save" type="button" onclick="save()">작성</button>
+      </div>
+      <div class="button">
+        <button class="load" type="button" onclick="load()">방명록</button>
+      </div>
     </div>
-    <div class="button">
-      <button class="load" type="button" onclick="load()">방명록</button>
+    <div id="visitBook">
+    </div>
   </div>
-  <div id="visitBook">
-  </div>
-
   <script src="./src/moviedetail.js"></script>
   <script src="./src/visitSave.js"></script>
   <script src="./src/visitLoad.js"></script>
   <script src="./src/visitDelete.js"></script>
+  <script src="./src/visitUpdate.js"></script>
 </body>
 
 </html>

@@ -35,3 +35,10 @@ function detailload() {
       )
     })
 };
+
+function handleOnInput(a, maxlength) {
+  if(a.value.length > maxlength)  {
+    a.value 
+      = a.value.substr(0, maxlength);
+  }
+}

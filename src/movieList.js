@@ -14,6 +14,7 @@ fetch(
   .then((response) => response.json())
   .then((data) => {
     let rows = data["results"];
+    console.log(rows)
     rows.forEach((a) => {
       let title = a["title"];
       let overview = a["overview"];
