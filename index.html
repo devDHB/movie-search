@@ -5,12 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/modal.css">
     <title>Movie_Stream</title>
 </head>
 
 <body>
+
     <div class="title">
-        <h1>Movie_Stream</h1>
+        <h1><a href="index.html">Movie_Stream</a></h1>
     </div>
     <div class="search">
         <label>Search : </label>
@@ -18,9 +20,22 @@
         <!-- search()버튼을 클릭하면 함수가 실행된다. -->
         <input type="button" class="img-button" id="search-btn" onclick="search()"></button>
     </div>
+    <!-- 정렬 버튼 추가 (방두현)-->
+    <div class="sort-box">
+      <h3 class="sort-title">정렬</h3>
+      <ul class="sort-list">
+        <li class="sort-list-char">ABC순</li>
+        <button class="sort-btn" data-id="char-asc">🔺</button>
+        <button class="sort-btn" data-id="char-desc">🔻</button>
+        
+        <li class="sort-list-rating">평점순</li>
+        <button class="sort-btn" data-id="rating-asc">🔺</button>
+        <button class="sort-btn" data-id="rating-desc">🔻</button>
+      </ul>
+    </div>
     <div class="cards-box" id="cards-box">
-
-      <script src="./src/movieList.js"></script>
+    </div>
+    <script src="./src/movieList.js"></script>
 </body>
 
 </html>
