@@ -37,8 +37,7 @@ fetch(
                               <p class="card-grade">-${grade}-</p>
                               <p class="card-text">${overview}</p>
                               </div>
-                          </div>
-                      </div>`;
+                          </div>`;
       document
         .querySelector("#cards-box")
         .insertAdjacentHTML("beforeend", temp_html); //append()가 태그까지 같이 붙혀버려서 insertAdjacentHTML(태그요소만 넣는 메소드)를 사용//
@@ -48,6 +47,7 @@ fetch(
 
 function search() {
   const search_Input = document.querySelector("#search-input"); //검색 값을 가져온다.//
+  console.log(search_Input)
   const search_word = search_Input.value.toLowerCase(); //검색 값을 소문자화 시킨다.//
   const movie_list = document.querySelectorAll(".flip-box"); //영화 제목을 깡그리 가져온다.//
 

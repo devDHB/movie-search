@@ -16,43 +16,30 @@
       </div>
       <div class="movieTitleAve">
       </div>
+    </div>
   </div>
 
-  <script>
-    let arr = [];
-    arr = location.href.split("?");
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NmQ2MDljY2M4YTk2OGQ4NmY3MDY5MGE5MmU3ZWMwMCIsInN1YiI6IjY0NzA4YTIwNzcwNzAwMDExOTI0ODFmYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5NjHTZbzSO0wzPIHy0BTBCKG3LvrIYUl4GMa0h1E5VE",
-      },
-    };
 
-    fetch(
-      "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
-      options
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const rows = data["results"];
-        const movie1 = rows.filter(data => data.id == arr[1]);
 
-        const infoBox = document.querySelector(".movieImgScript");
-        const titleBox = document.querySelector(".movieTitleAve");
 
-        infoBox.innerHTML = movie1.map(
-          (movie1) => `<img src="https://image.tmdb.org/t/p/w500${movie1.poster_path}" alt="${movie1.title}" class="infoImg">
-        <div class="infoOverview">${movie1.overview}</div>
-        `
-        );
-        titleBox.innerHTML = movie1.map(
-          (movie1) => `<h3 class="infoTitle">${movie1.title}</h3>
-        <p class="infoAverage">${movie1.vote_average}</p>`
-        )
-      })
-  </script>
+  <div id="review">
+    <div class="login">
+      <input type="text" id="nickName" placeholder="name">
+      <input type="password" id="password" placeholder="password">
+    </div>
+    <div class="button">
+      <button class="save" type="button" onclick="save()">작성</button>
+    </div>
+    <div class="button">
+      <button class="load" type="button" onclick="load()">방명록</button>
+  </div>
+  <div id="visitBook">
+  </div>
+
+  <script src="./src/moviedetail.js"></script>
+  <script src="./src/visitSave.js"></script>
+  <script src="./src/visitLoad.js"></script>
+  <script src="./src/visitDelete.js"></script>
 </body>
 
 </html>
