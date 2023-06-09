@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(221, 219, 219);
+}
+
+.section {
+    width: 100%;
+    height: 450px;
+    background-color: rgb(221, 219, 219);
+}
+
+#infoContainer {
+    margin: 20px auto 0px auto;
+    width: 1200px;
+    border-bottom: 2px solid gray;
+}
+
+.movieImgScript {
+    display: flex;
+}
+
+.infoImg {
+    margin-right: 10px;
+    width: 220px;
+    height: 300px;
+    border: 10px solid white;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.infoTitle {
+    font-size: 35px;
+    color: black;
+}
+
+.infoAverage {
+    color: black;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.infoOverview {
+    width: 1200px;
+    height: 300px;
+    border: 1px solid gray;
+    color: black;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+}
+
+
+.commentbox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.review {
+    margin: 0px auto 0px auto;
+    width: 1200px;
+}
+
+.login {
+    display: flex;
+    margin: 0px auto 0px auto;
+    width: 1200px;
+}
+
+.buttons {
+    display: flex;
+    margin: 0px auto 10px auto;
+    width: 1200px;
+}
+
+.visitBook {
+    margin: 0px auto 0px auto;
+    width: 1200px;
+}
+
+.labalId{
+    margin: 0px auto 0px auto;
+    width: 1200px;
+}
+
+.listBox {
+    margin: 0px auto 0px auto;
+    border: 1px solid gray;
+    width: 1200px;
+}
