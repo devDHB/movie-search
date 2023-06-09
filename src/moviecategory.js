@@ -175,7 +175,7 @@ function showMovies(data) {
             </div>
         </div>
     </div>`;
-
+// document 이벤트 생성
     document
       .querySelector("#cards-box")
       .insertAdjacentHTML("beforeend", movieEL.outerHTML);
