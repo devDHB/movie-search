@@ -5,10 +5,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
-    <link rel="stylesheet" href="./style/modal.css">
+    <link rel="stylesheet" href="./style/style_b.css">
     <title>Movie_Stream</title>
 </head>
-
+  <div id="tags">
+    <div class="tag" onclick="cateGory()">액션</div>
+    <div class="tag" onclick="cateGory()">모험</div>
+    <div class="tag" onclick="cateGory()">드라마</div>
+    <div class="tag" onclick="cateGory()">코미디</div> 
+  </div>
 <body>
 
     <div class="title">
@@ -16,7 +21,8 @@
     </div>
     <div class="search">
         <label>Search : </label>
-        <input type="text" id="search-input" placeholder="Input The movie" />
+        <!-- 글자수 30제한 -->
+        <input type="text" id="search-input" maxlength='30' placeholder="Input The movie" required/>
         <!-- search()버튼을 클릭하면 함수가 실행된다. -->
         <input type="button" class="img-button" id="search-btn" onclick="search()"></button>
     </div>
@@ -36,6 +42,8 @@
     <div class="cards-box" id="cards-box">
     </div>
     <script src="./src/movieList.js"></script>
+    <script src="./src/moviecategory.js"></script>
+
 </body>
 
 </html>
