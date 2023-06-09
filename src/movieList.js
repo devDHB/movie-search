@@ -23,7 +23,7 @@ fetch(
   .then((data) => {
     let rows = data["results"];
 
-    // 정렬 버튼 추가 // (방두현)
+    // 정렬 버튼 추가 //
     sortBtn = document.querySelectorAll(".sort-btn");
     // 각 버튼에 클릭 이벤트를 추가하기 위해
     // 버튼수만큼 반복문 추가
@@ -243,7 +243,7 @@ function search() {
   }
 }
 
-// 상세페이지로 id값 넘기기 // (방두현)
+// 상세페이지로 id값 넘기기 //
 function select(id) {
   alert(`영화 id: ${id}`);
   alert((window.location.href = "detail.html?" + id));

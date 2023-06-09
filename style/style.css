@@ -134,3 +134,24 @@ input.img-button {
   padding: 5px 10px;
   margin: 0 5px;
 }
+
+/* 카테고리 css */
+
+#tag {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.tag {
+  color: aliceblue;
+  padding: 10px 15px;
+  background-color: orange;
+  border-radius: 50px;
+  margin: 5px;
+  display: inline-block;
+  cursor: pointer;
+}
