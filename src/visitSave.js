@@ -1,6 +1,6 @@
 const nickName = document.getElementById('nickName');
 const password = document.getElementById('password');
-const comment = document.getElementById('comment')
+const comment = document.getElementById('comment');
 
 
 function save() {
