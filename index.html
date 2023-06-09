@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--날씨-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/0f55050669.js" crossorigin="anonymous"></script>
+<script src="./src/movieWeather.js"></script>
+<link rel="stylesheet" href="./style/movieWeather.css">
+<!--게스트-->
+
+<link rel="stylesheet" href="./style/movieGuest.css">
+
+
+
+
+
+
+
+
+
+<head>
+    <style>
+        body {
+            background-color: rgb(58, 56, 56);
+
+        }
+
+        /* display:flax;로 flex속성을 준다. justify-content: center; flex속성 가로/ align-items: center 세로/ 가 가운데 정렬이 된다. */
+        .title {
+            background-color: rgb(58, 56, 56);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: aliceblue;
+        }
+
+        .search {
+            color: aliceblue;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            font-size: 25px;
+        }
+
+        .search input {
+            margin-left: 10px;
+        }
+
+        /* 이미지url을 넣었다. 외부프로그램으로 사진 크기를 32 32 px로 만들어서 크기와 버튼이 딱 맞물리도록 조절했다. */
+        input.img-button {
+            width: 32px;
+            height: 32px;
+            background: url("img/button_search.png");
+            cursor: pointer;
+            background-color: white;
+
+        }
+
+
+
+
+
+        /* display:gird;는 행과 열 속성을 부여한다.  grid-template-columns는 세로로 몇 줄씩 정렬할 것인지 설정할 수 있다. */
+        .cards-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            background-color: rgb(223, 223, 223);
+            width: 100%;
+            height: 100%;
+        }
+
+        .flip-box {
+            width: 300PX;
+            height: 600PX;
+            margin: 100px auto 0;
+        }
+
+        /* transform-style: preserve-3d;는 카드가 3차원으로 움직일 수 있도록 설정한 것,  position: relative;,하위 요소에 대한 절대적인 위치를 설정 */
+        .flip {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: 0.5s;
+            position: relative;
+        }
+
+        /* position: absolute; 상위 요소의 절대적인 위치에 설정 backface-visibility: hidden; 앞면카드와 뒷면카드의 '뒷면'을 투명하게 한다.  */
+        .front,
+        .back {
+            border-radius: 20px;
+            position: absolute;
+            backface-visibility: hidden;
+            width: 100%;
+            height: 100%;
+            box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* transform: rotateY(180deg); 카드를 y축으로 180도 뒤집는다. */
+        .back {
+            transform: rotateY(180deg);
+        }
+
+        /* 커서를 대면 y축으로 180도 뒤집는다. */
+        .flip-box:hover .flip {
+            transform: rotateY(-180deg);
+        }
+
+        /* 카드 위치가 겹치도록 위치를 절대적으로 설정한다. position: absolute; */
+        .card-background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 20px;
+        }
+
+        .card-img {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: black;
+            font-size: 25px;
+        }
+
+        /* opacity: 0.1; 불투명도를 설정한다. */
+        .back-background {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            opacity: 0.1;
+        }
+
+        .card-grade {
+            color: black;
+            font-size: 25px;
+        }
+
+        .card-text {
+            color: black;
+            font-size: 15px;
+            margin: 10px 10px 10px 10px;
+        }
+    </style>
+    <title>Movie_Stream</title>
+</head>
+
+<body>
+    <div class="title">
+        <h1>Movie_Stream</h1>
+    </div>
+
+    <div class="search">
+
+        <label>Search : </label>
+        <input type="text" id="search-input" placeholder="Input The movie" />
+        <!-- search()버튼을 클릭하면 함수가 실행된다. -->
+        <input type="button" class="img-button" id="search-btn" onclick="search()"></button>
+
+    </div>
+
+
+    <div class="Weather">
+        <div class="weather_icon"></div>
+        <div class="city"></div>
+        <div class="current_temp"></div>
+        <div class="temp_min"></div>
+        <div class="temp_max"></div>
+        <!-- 다른 날씨 속성 class 값들 movieWeather.js 참조
+        <div class="city"></div>
+        <div class="humidity"></div>
+        <div class="wind"></div>
+        <div class="cloud"></div> 
+        -->
+    </div>
+
+
+
+
+    <div class="cards-box" id="cards-box">
+
+        <script>
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NmQ2MDljY2M4YTk2OGQ4NmY3MDY5MGE5MmU3ZWMwMCIsInN1YiI6IjY0NzA4YTIwNzcwNzAwMDExOTI0ODFmYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5NjHTZbzSO0wzPIHy0BTBCKG3LvrIYUl4GMa0h1E5VE'
+                }
+            };
+
+            fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+                .then(response => response.json()).then(data => {
+                    let rows = data['results']
+                    rows.forEach((a) => {
+                        let title = a['title']
+                        let overview = a['overview']
+                        let img = a['poster_path']
+                        let grade = a['vote_average']
+                        let id = a['id']
+                        //카드를 클릭하면  id가 alert이 되는 함수를 실행한다.//
+                        //카드 뒤집는 태그가 차례로 있다.//
+                        let temp_html = `<div class="flip-box" onclick="select(${id})">
+                                            <div class="flip">
+                                                <div class="front">
+                                                <div class="img-cut"> 
+                                                <img src="https://image.tmdb.org/t/p/original/${img}"
+                                                class="card-background">
+                                                <img src="https://image.tmdb.org/t/p/original/${img}"
+                                                class="card-img">
+                                                </div>
+                                                <h5 id="movie_title" class="card-title">${title}</h5>                                                                                               
+                                                </div>
+                                                <div class="back">
+                                                <p class="card-grade">-${grade}-</p>
+                                                <p class="card-text">${overview}</p>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                        document.querySelector("#cards-box").insertAdjacentHTML("beforeend", temp_html)//append()가 태그까지 같이 붙혀버려서 insertAdjacentHTML(태그요소만 넣는 메소드)를 사용//
+                    })
+                })
+                .catch(err => console.error(err));
+
+            function search() {
+                const search_Input = document.querySelector('#search-input');//검색 값을 가져온다.//
+                const search_word = search_Input.value.toLowerCase();//검색 값을 소문자화 시킨다.//
+                const movie_list = document.querySelectorAll('.flip-box');//영화 제목을 깡그리 가져온다.//
+
+                movie_list.forEach((a) => {
+                    const movie_title = a.querySelector("#movie_title").textContent.toLowerCase();//가져온 영화제목을 전부 소문자화 한다.
+
+                    if (movie_title.indexOf(search_word) !== -1) {//검색값과 영화의 제목이 일치하는게 있다면 스타일 display css를 block으로 전환//
+                        a.style.display = 'block'
+                    }
+                    else {
+                        a.style.display = 'none'//검색값과 같은게 없다면 스타일 display css를 none으로 전환//
+                    }
+                })
+            }
+
+
+
+            function select(id) {
+                alert(`영화 id: ${id}`);
+            }
+
+        </script>
+</body>
+
+<script async src="./src/movieGuest.js"></script>
+<!-- Guest 붙을 예정 -->
+<s_guest>
+    <div id="guestbook">
+        <h1 class='guestbook-title'>Guestbook</h1>
+        <div class="guest-write">
+            <s_guest_input_form>
+                <s_guest_member>
+                    <s_guest_form>
+                        <div class='guest-info'>
+                            <input type='text' id="guest-name" name='' title='이름' placeholder='이름' autocomplete="off" />
+                        </div>
+                        <div class='guest-info'>
+                            <input type="password" id="guest-pwd" maxlength="8" name="" title='password'
+                                placeholder='password' />
+                        </div>
+                    </s_guest_form>
+                </s_guest_member>
+                <div class='comment'>
+                    <textarea type='text' id="guest-comment" name="" placeholder='여러분의 소중한 방명록을 남겨주세요'
+                        autocomplete="off"></textarea>
+                </div>
+                <div class='submit'>
+                    <input type="submit" value="방명록 남기기" id="guest-edit" onclick="guestedit()" />
+                </div>
+            </s_guest_input_form>
+            <s_guest_input_form>
+                <div class="guest-box" id="guest-box">
+                    
+                </div>
+            </s_guest_input_form>
+        </div>
+    </div>
+</s_guest>
+
+
+
+
+
+</html>
