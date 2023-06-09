@@ -18,12 +18,14 @@ function detailload() {
     .then((response) => response.json())
     .then((data) => {
       const rows = data["results"];
+      //find함수를 사용해서 필요한 데이터만 뽑음//
       const moviedata = rows.find(data => data.id == arr);
+      //find로 뽑은 데이터는 객체기 때문에 배열을 래핑함//
       const movie1 = [moviedata];
-
+      //map으로 붙힐 부분 //
       const infoBox = document.querySelector(".movieImgScript");
       const titleBox = document.querySelector(".movieTitleAve");
-
+      //map으로 innerHTML에 붙힘//
       infoBox.innerHTML = movie1.map(
         (movie1) => `<img src="https://image.tmdb.org/t/p/w500${movie1.poster_path}" alt="${movie1.title}" class="infoImg">
         <div class="infoOverview">${movie1.overview}</div>
@@ -35,7 +37,7 @@ function detailload() {
       )
     })
 };
-
+//패스워드에 최대상한을 정함//
 function handleOnInput(a, maxlength) {
   if(a.value.length > maxlength)  {
     a.value 
