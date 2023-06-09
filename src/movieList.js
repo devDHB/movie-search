@@ -2,7 +2,6 @@
 let titleAll = [];
 // 영화 평점들을 저장하기 위한 변수
 let ratingAll = [];
-
 // 클릭한 버튼의 data-id를 저장
 // char-asc / char-desc / rating-asc / rating-desc  네가지로 분류
 let clickData = "";
@@ -23,9 +22,11 @@ fetch(
   .then((response) => response.json())
   .then((data) => {
     let rows = data["results"];
-    // 정렬 버튼 // (방두현)
-    sortBtn = document.querySelectorAll(".sort-btn");
 
+    // 정렬 버튼 추가 // (방두현)
+    sortBtn = document.querySelectorAll(".sort-btn");
+    // 각 버튼에 클릭 이벤트를 추가하기 위해
+    // 버튼수만큼 반복문 추가
     for (let i = 0; i < sortBtn.length; i++) {
       sortBtn[i].addEventListener("click", function (e) {
         // 클릭한 버튼의 data-id를 저장
@@ -171,7 +172,7 @@ fetch(
           });
         }
 
-        // 정렬 후, 배열 초기화
+        // 정렬 후 제목, 평점 배열 초기화
         titleAll = [];
         ratingAll = [];
       });
@@ -217,19 +218,29 @@ function search() {
   const search_word = search_Input.value.toLowerCase(); //검색 값을 소문자화 시킨다.//
   const movie_list = document.querySelectorAll(".flip-box"); //영화 제목을 깡그리 가져온다.//
 
-  movie_list.forEach((a) => {
-    const movie_title = a
-      .querySelector("#movie_title")
-      .textContent.toLowerCase(); //가져온 영화제목을 전부 소문자화 한다.
+  // 정규식 - 영어 숫자만 가능
+  enRegExp = /[^0-9a-zA-Z]/g;
 
-    if (movie_title.indexOf(search_word) !== -1) {
-      //검색값과 영화의 제목이 일치하는게 있다면 스타일 display css를 block으로 전환//
-      a.style.display = "block";
-    } else {
-      //검색값과 같은게 없다면 스타일 display css를 none으로 전환//
-      a.style.display = "none";
-    }
-  });
+  // match 메소드를 사용하여 정규식 체크
+  // 정규식에 일치하지 않으면 경고창
+  if (search_Input.value.match(enRegExp)) {
+    alert("영문, 숫자로 입력해주세요");
+  } else {
+    // 일치하면 검색기능
+    movie_list.forEach((a) => {
+      const movie_title = a
+        .querySelector("#movie_title")
+        .textContent.toLowerCase(); //가져온 영화제목을 전부 소문자화 한다.
+
+      if (movie_title.indexOf(search_word) !== -1) {
+        //검색값과 영화의 제목이 일치하는게 있다면 스타일 display css를 block으로 전환//
+        a.style.display = "block";
+      } else {
+        //검색값과 같은게 없다면 스타일 display css를 none으로 전환//
+        a.style.display = "none";
+      }
+    });
+  }
 }
 
 // 상세페이지로 id값 넘기기 // (방두현)
