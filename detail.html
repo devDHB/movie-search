@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style/info.css">
+  <title>movieInfo</title>
+</head>
+
+<body>
+  <div class="section">
+    <div id="infoContainer">
+      <div class="movieImgScript">
+      </div>
+      <div class="movieTitleAve">
+      </div>
+    </div>
+  </div>
+
+  <div id="review">
+    <div class="login">
+      <input type="text" id="comment" placeholder="comment" maxlength='144'>
+      <input type="text" id="nickName" placeholder="name" maxlength='8'>
+      <input type="password" id="password" placeholder="password"  oninput='handleOnInput(this, 8)'>
+    </div>
+    <div class="buttons">
+      <div class="button">
+        <button class="save" type="button" onclick="save()">작성</button>
+      </div>
+      <div class="button">
+        <button class="load" type="button" onclick="load()">방명록</button>
+      </div>
+    </div>
+    <div id="visitBook">
+    </div>
+  </div>
+
+  <div id="modal" class="modal-overlay">
+    <div class="modal-window">
+        <div class="title">
+            <h2>수정</h2>
+        </div>
+        <div class="close-area">X</div>
+        <div class="content">
+            <input type="text" id="newComment" placeholder="new comment">
+            <input type="text" id="newId" placehoder="name">
+            <input type="password" id="newPassword" placehoder="password">
+            <button type="button" onclick="Update()">수정</button>
+        </div>
+    </div>
+  </div>
+  
+  <script src="./src/moviedetail.js"></script>
+  <script src="./src/visitSave.js"></script>
+  <script src="./src/visitLoad.js"></script>
+  <script src="./src/visitDelete.js"></script>
+  <script src="./src/visitUpdate.js"></script>
+</body>
+
+</html>
