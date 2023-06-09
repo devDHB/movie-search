@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+ <!--날씨-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/0f55050669.js" crossorigin="anonymous"></script>
+<script src="./src/movieWeather.js"></script>
+<link rel="stylesheet" href="./style/movieWeather.css">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,6 +30,21 @@
         <!-- search()버튼을 클릭하면 함수가 실행된다. -->
         <input type="button" class="img-button" id="search-btn" onclick="search()"></button>
     </div>
+  
+      <div class="Weather">
+        <div class="weather_icon"></div>
+        <div class="city"></div>
+        <div class="current_temp"></div>
+        <div class="temp_min"></div>
+        <div class="temp_max"></div>
+        <!-- 다른 날씨 속성 class 값들 movieWeather.js 참조
+        <div class="city"></div>
+        <div class="humidity"></div>
+        <div class="wind"></div>
+        <div class="cloud"></div> 
+        -->
+    </div>
+  
     <!-- 정렬 버튼 추가 -->
     <div class="sort-box">
       <h3 class="sort-title">정렬</h3>
